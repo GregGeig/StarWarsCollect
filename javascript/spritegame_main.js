@@ -33,6 +33,7 @@ let gameContainer = document.getElementById("surface");
 let startButton = document.getElementById("startButton");
 let debug_output = document.getElementById("debug_output");
 
+let entercounter = 0;
 document.getElementById("content").style.display = "block";
 document.getElementById("content2").style.display = "none";
 
@@ -61,17 +62,9 @@ function nextscape() {
   audios[counter1].play();
   document.getElementById("scapes").src = scapes2[counter1];
 }
-var input = document.getElementById("input");
 
-input.addEventListener("keydown", function (event) {
-  if (event.key === "Enter") {
-    var inputValue = input.value;
-    console.log(inputValue);
-    document.getElementById("hidden").style.opacity = 1;
-    audios[6].play();
-    audios[6].loop = true;
-  }
-});
+
+
 function lastscape() {
   if (counter1 == 0) {
     counter1 = counter1 + 5;
@@ -97,6 +90,32 @@ function switchArea() {
   audios[counter1].play();
   document.getElementById("surface").style.backgroundSize = "cover";
 }
+let input = document.getElementById("input");
+let eventboolean = true
+
+addEventListener("keydown", function(event){
+  if (event.key === "Enter" && input.value != "" && input.style.display != "none" && eventboolean == true) {
+    var inputValue = input.value;
+    console.log(inputValue);
+    document.getElementById("input").style.display = "none";
+    document.getElementById("hidden").style.opacity = 1;
+    audios[6].play();
+    audios[6].loop = true;
+    eventboolean = false
+  } else if (event.key === "Enter" && eventboolean == false) {
+    switchArea()
+  }
+});
+
+document.addEventListener('keydown', function(event) {
+  if (input.style.display == "none" && document.getElementById('content').style.display != "none")
+  if (event.key === "ArrowLeft") {
+    lastscape();
+  }
+  else if (event.key === "ArrowRight") {
+    nextscape();
+  }
+});
 
 // Scale the surface to 80% of the screen width
 let surface_scale = 0.8 * (window.innerWidth / surface.clientWidth);
