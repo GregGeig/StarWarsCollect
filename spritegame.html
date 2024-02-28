@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sprite Game</title>
+    <link rel="stylesheet" href="./css/spritegame.css" />
+    <script src="./javascript/spritegame_main.js" defer></script>
+  </head>
+  <body>
+    <div id="content">
+      <h1 id="bigtitle">Star Wars Holocron Hunt</h1>
+      <audio autoplay loop="true" id="cantina" src="./audio/audio6.mp3"></audio>      
+      <div id="inputfield">
+        <input type="text" id="input" placeholder="Enter your name" onkeydown=""/>
+      </div>
+      <div id="hidden">
+      <h3 id="h3l">Landscapes</h3>
+      <div id="landscape">
+        <div class="button" id="button1" onclick="lastscape()"></div>
+        <div class="middle">
+          <img id="scapes" src="./images/img1.jpg" alt="landscape" />
+        </div>
+        <div class="button" id="button2" onclick="nextscape()"></div>
+      </div>
+
+      <div id="submit">
+        <button type="submit" id="sub" onclick="switchArea()">
+          Travel to landscape
+        </button>
+      </div>
+    </div>
+</div>
+    <div id="content2">
+      <div id="dashboard">
+        
+        <div id="startButton" onclick="startGame()">START GAME</div>
+      </div>
+
+      <div id="surface">
+        <div id="player">
+          <img id="spriteImg" src="./images/star_wars.png" alt="sprite" />
+        </div>
+        <div id="collectible" data-value="1"></div>
+      </div>
+    </div>
+  </body>
+</html>
