@@ -63,8 +63,6 @@ function nextscape() {
   document.getElementById("scapes").src = scapes2[counter1];
 }
 
-
-
 function lastscape() {
   if (counter1 == 0) {
     counter1 = counter1 + 5;
@@ -91,30 +89,41 @@ function switchArea() {
   document.getElementById("surface").style.backgroundSize = "cover";
 }
 let input = document.getElementById("input");
-let eventboolean = true
+let eventcounter = 1;
 
-addEventListener("keydown", function(event){
-  if (event.key === "Enter" && input.value != "" && input.style.display != "none" && eventboolean == true) {
+addEventListener("keydown", function (event) {
+  if (
+    event.key === "Enter" &&
+    input.value != "" &&
+    input.style.display != "none" &&
+    eventcounter == 1
+  ) {
     var inputValue = input.value;
     console.log(inputValue);
     document.getElementById("input").style.display = "none";
     document.getElementById("hidden").style.opacity = 1;
     audios[6].play();
     audios[6].loop = true;
-    eventboolean = false
-  } else if (event.key === "Enter" && eventboolean == false) {
-    switchArea()
+    eventcounter = 2;
+  } else if (event.key === "Enter" && eventcounter == 2) {
+    audios[6].pause();
+    switchArea();
+    eventcounter = 3;
+  } else if (event.key === "Enter" && eventcounter == 3) {
+    startGame();
   }
 });
 
-document.addEventListener('keydown', function(event) {
-  if (input.style.display == "none" && document.getElementById('content').style.display != "none")
-  if (event.key === "ArrowLeft") {
-    lastscape();
-  }
-  else if (event.key === "ArrowRight") {
-    nextscape();
-  }
+document.addEventListener("keydown", function (event) {
+  if (
+    input.style.display == "none" &&
+    document.getElementById("content").style.display != "none"
+  )
+    if (event.key === "ArrowLeft") {
+      lastscape();
+    } else if (event.key === "ArrowRight") {
+      nextscape();
+    }
 });
 
 // Scale the surface to 80% of the screen width
@@ -197,10 +206,9 @@ function startGame() {
 
   startButton.innerHTML = "STARTED";
   startButton.removeAttribute("onclick");
-  document.getElementById("dashboard").innerHTML = 
-  `<div id="counter">
+  document.getElementById("dashboard").innerHTML = `<div id="counter">
   <h1>Points: ${counter}</h1>
-  </div>`
+  </div>`;
 
   gameLoop();
 }
@@ -270,17 +278,15 @@ function movePlayer(dx, dy, dr) {
     let collectiblem = collectible.dataset.value;
     collectiblem = parseInt(collectiblem);
     counter = counter + collectiblem;
-    audios[counter1].pause()
+    audios[counter1].pause();
     audios[7].play();
-    document.getElementById(
-      "counter"
-    ).innerHTML = `
+    document.getElementById("counter").innerHTML = `
     <h1>Points: ${counter}</h1>`;
     collectible.style.display = "none";
     setTimeout(() => {
       placeCollectible();
-      
-    audios[counter1].play()
+
+      audios[counter1].play();
     }, 1000);
   }
 
