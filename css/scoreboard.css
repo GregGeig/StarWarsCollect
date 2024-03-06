@@ -1,0 +1,41 @@
+body, html{
+    background-image: url(../images/space.jpg);
+    overflow-x
+    : hidden;
+    text-align: center;
+    
+}
+
+@font-face {
+  font-family: jedi;
+  src: url(../font/star_jedi/starjedi/Starjedi.ttf);
+}
+
+#headline{
+  font-family: jedi;
+  font-size: 2rem;
+  color: yellow;
+  text-align: center;
+}
+
+.descriptionrow{
+  color: yellow;
+  font-size: 1.8rem;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  left: 14vw;
+}
+
+.place{
+  width: 10vw;
+  height: auto;
+  padding-left: 4vw;
+}
+
+.name{
+  width: 40vw;
+  height: auto;
+  padding-left: 4vw;
+}
+
