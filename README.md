@@ -6,3 +6,6 @@
 * Man kann keinen leeren Namen benutzen
 * Man kann mit Pfeil-Tasten vorschau wechseln
 * Man kann mit nochmal Enter die function SwitchArea() aktivieren
+
+## 1.2
+* Start Game mit Enter
