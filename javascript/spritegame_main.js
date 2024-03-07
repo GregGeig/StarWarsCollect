@@ -44,13 +44,15 @@ let scapes2 = [
   "images/img4.jpg",
   "images/img5.jpg",
   "images/img6.jpg",
+  "images/img7.jpg",
+  "images/img8.jpg",
 ];
 
 let counter1 = 0;
 
 function nextscape() {
-  if (counter1 == 5) {
-    counter1 = counter1 - 5;
+  if (counter1 == 7) {
+    counter1 = counter1 - 7;
   } else {
     counter1++;
   }
@@ -65,7 +67,7 @@ function nextscape() {
 
 function lastscape() {
   if (counter1 == 0) {
-    counter1 = counter1 + 5;
+    counter1 = counter1 + 7;
   } else {
     counter1--;
   }
