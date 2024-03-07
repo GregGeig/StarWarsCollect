@@ -21,6 +21,9 @@ let audios = [
   new Audio("./audio/audio5.mp3"),
   new Audio("./audio/audio6.mp3"),
   new Audio("./audio/audio7.mp3"),
+  new Audio("./audio/audio8.mp3"),
+  new Audio("./audio/audio9.mp3"),
+  new Audio("./audio/audio10.mp3"),
   new Audio("./audio/pickup.mp3"),
 ];
 
@@ -49,9 +52,40 @@ let scapes2 = [
 ];
 
 let counter1 = 0;
+let input = document.getElementById("input");
+let eventcounter = 1;
+
+addEventListener("keydown", function (event) {
+  if (
+    event.key === "Enter" &&
+    input.value != "" &&
+    input.style.display != "none" &&
+    eventcounter == 1
+  ) {
+    var inputValue = input.value;
+    if (inputValue === "MLP") {
+      console.log("MLP activated");
+      switchArea();
+      surface.style.background = "url(images/img10.jpg)";
+      surface.style.backgroundSize = "cover";
+    }
+    console.log(inputValue);
+    document.getElementById("input").style.display = "none";
+    document.getElementById("hidden").style.opacity = 1;
+    audios[6].play();
+    audios[6].loop = true;
+    eventcounter = 2;
+  } else if (event.key === "Enter" && eventcounter == 2) {
+    audios[6].pause();
+    switchArea();
+    eventcounter = 3;
+  } else if (event.key === "Enter" && eventcounter == 3) {
+    startGame();
+  }
+});
 
 function nextscape() {
-  if (counter1 == 7) {
+  if (counter1 == scapes2.length - 1) {
     counter1 = counter1 - 7;
   } else {
     counter1++;
@@ -83,39 +117,13 @@ let cantinamusic = document.getElementById("cantina");
 function switchArea() {
   document.getElementById("content").style.display = "none";
   document.getElementById("content2").style.display = "block";
-  document.getElementById("surface").style.height = "600px";
+  document.getElementById("surface").style.height = "580px";
   document.getElementById("surface").style.width = "1200px";
   document.getElementById("surface").style.background =
     "url(" + scapes2[counter1] + ")";
   audios[counter1].play();
   document.getElementById("surface").style.backgroundSize = "cover";
 }
-let input = document.getElementById("input");
-let eventcounter = 1;
-
-addEventListener("keydown", function (event) {
-  if (
-    event.key === "Enter" &&
-    input.value != "" &&
-    input.style.display != "none" &&
-    eventcounter == 1
-  ) {
-    var inputValue = input.value;
-    console.log(inputValue);
-    document.getElementById("input").style.display = "none";
-    document.getElementById("hidden").style.opacity = 1;
-    audios[6].play();
-    audios[6].loop = true;
-    eventcounter = 2;
-  } else if (event.key === "Enter" && eventcounter == 2) {
-    audios[6].pause();
-    switchArea();
-    eventcounter = 3;
-  } else if (event.key === "Enter" && eventcounter == 3) {
-    startGame();
-  }
-});
-
 document.addEventListener("keydown", function (event) {
   if (
     input.style.display == "none" &&
@@ -209,7 +217,7 @@ function startGame() {
   startButton.innerHTML = "STARTED";
   startButton.removeAttribute("onclick");
   document.getElementById("dashboard").innerHTML = `<div id="counter">
-  <h1>Points: ${counter}</h1>
+  <h1>points: ${counter}</h1>
   </div>`;
 
   gameLoop();
@@ -281,9 +289,14 @@ function movePlayer(dx, dy, dr) {
     collectiblem = parseInt(collectiblem);
     counter = counter + collectiblem;
     audios[counter1].pause();
-    audios[7].play();
+    audios[audios.length -1].play();
+    if (counter >= 1000){
+      document.getElementById("counter").innerHTML = `<h1>points: max</h1>`;
+      counter = 999;
+    } else {
     document.getElementById("counter").innerHTML = `
-    <h1>Points: ${counter}</h1>`;
+    <h1>points: ${counter}</h1>`;
+    }
     collectible.style.display = "none";
     setTimeout(() => {
       placeCollectible();
@@ -344,7 +357,7 @@ function placeCollectible() {
   // calculate random position
   let maxX = gameContainer.clientWidth - collectible.clientWidth;
   let maxY = gameContainer.clientHeight - collectible.clientHeight;
-  audios[7].pause();
+  audios[audios.length -1].pause();
   let randomX = Math.floor(Math.random() * maxX);
   while (randomX < 0 || randomX > 1180) {
     randomX = Math.floor(Math.random() * maxX);
