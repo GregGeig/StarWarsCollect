@@ -24,6 +24,7 @@ let audios = [
   new Audio("./audio/audio8.mp3"),
   new Audio("./audio/audio9.mp3"),
   new Audio("./audio/audio10.mp3"),
+  new Audio("./audio/audio11.mp3"),
   new Audio("./audio/pickup.mp3"),
 ];
 
@@ -54,6 +55,7 @@ let scapes2 = [
 let counter1 = 0;
 let input = document.getElementById("input");
 let eventcounter = 1;
+let mlpValid = false;
 
 addEventListener("keydown", function (event) {
   if (
@@ -63,20 +65,25 @@ addEventListener("keydown", function (event) {
     eventcounter == 1
   ) {
     var inputValue = input.value;
-    if (inputValue === "MLP") {
+    if (inputValue === "MLP" && eventcounter == 1) {
+      audios[10].loop = false
+      audios[10].pause()
       console.log("MLP activated");
       switchArea();
       surface.style.background = "url(images/img10.jpg)";
       surface.style.backgroundSize = "cover";
+      mlpValid = true;
     }
     console.log(inputValue);
     document.getElementById("input").style.display = "none";
     document.getElementById("hidden").style.opacity = 1;
-    audios[6].play();
-    audios[6].loop = true;
+    if(!mlpValid){
+    audios[10].play();
+    audios[10].loop = true;
+    }
     eventcounter = 2;
   } else if (event.key === "Enter" && eventcounter == 2) {
-    audios[6].pause();
+    audios[10].pause();
     switchArea();
     eventcounter = 3;
   } else if (event.key === "Enter" && eventcounter == 3) {
@@ -93,8 +100,8 @@ function nextscape() {
   for (let index = 0; index < audios.length; index++) {
     audios[index].pause();
   }
-  audios[6].pause();
-  audios[6].loop = false;
+  audios[10].pause();
+  audios[10].loop = false;
   audios[counter1].play();
   document.getElementById("scapes").src = scapes2[counter1];
 }
@@ -108,8 +115,8 @@ function lastscape() {
   for (let index = 0; index < audios.length; index++) {
     audios[index].pause();
   }
-  audios[6].pause();
-  audios[6].loop = false;
+  audios[10].pause();
+  audios[10].loop = false;
   audios[counter1].play();
   document.getElementById("scapes").src = scapes2[counter1];
 }
@@ -121,6 +128,7 @@ function switchArea() {
   document.getElementById("surface").style.width = "1200px";
   document.getElementById("surface").style.background =
     "url(" + scapes2[counter1] + ")";
+  audios[10].pause()
   audios[counter1].play();
   document.getElementById("surface").style.backgroundSize = "cover";
 }
@@ -386,3 +394,79 @@ function placeCollectible() {
 }
 
 placeCollectible();
+
+
+
+function idset(id, string) {
+  document.getElementById(id).innerHTML = string;
+}
+
+var stoppuhr = (function() {
+  var stop = 1;
+  var days = 0;
+  var hrs = 0;
+  var mins = 0;
+  var secs = 0;
+  var msecs = 0;
+  return {
+    start: function() {
+      stop = 0;
+    },
+    stop: function() {
+      stop = 1;
+    },
+    clear: function() {
+      stoppuhr.stop();
+      days = 0;
+      hrs = 0;
+      mins = 0;
+      secs = 0;
+      msecs = 0;
+      stoppuhr.html();
+    },
+    restart: function() {
+      stoppuhr.clear();
+      stoppuhr.start();
+    },
+    timer: function() {
+      if (stop === 0) {
+        msecs++;
+        if (msecs === 100) {
+          secs ++;
+          msecs = 0;
+        }
+        if (secs === 60) {
+          mins++;
+          secs = 0;
+        }
+        if (mins === 60) {
+          hrs++;
+          mins = 0;
+        }
+        if (hrs === 24) {
+          days++;
+          hrs = 0;
+        }
+        stoppuhr.html();
+      }
+    },
+    
+    set: function(tage, stunden, minuten, sekunden, msekunden) {
+      stoppuhr.stop();
+      days = tage;
+      hrs = stunden;
+      mins = minuten;
+      secs = sekunden;
+      msecs = msekunden;
+      stoppuhr.html();
+    },
+    html: function() {
+      idset("tage", days);
+      idset("stunden", hrs);
+      idset("minuten", mins);
+      idset("sekunden", secs);
+      idset("msekunden", msecs);
+    }
+  }
+})();
+setInterval(stoppuhr.timer, 10);

@@ -1,9 +1,8 @@
 body, html{
     background-image: url(../images/space.jpg);
-    overflow-x
-    : hidden;
+    overflow-x: hidden;
     text-align: center;
-    
+
 }
 
 @font-face {
