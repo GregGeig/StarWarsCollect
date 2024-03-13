@@ -3,7 +3,6 @@ html {
   background-image: url(../images/space.jpg);
   overflow-x: hidden;
   text-align: center;
-
 }
 
 @font-face {
@@ -57,17 +56,17 @@ p {
   font-size: 2rem;
   width: 20vw;
   position: relative;
+  top: 5vh;
   padding: 0.3vw;
   background-color: black;
   border: yellow solid 3px;
   color: yellow;
   font-family: jedi;
-  margin-bottom: 2vw;
+  margin-bottom: 5vw;
   transition: linear 0.3s;
   border-radius: 10vw;
 }
 
 #animatePlayAgain:hover{
   transform: scale(1.15,1.15);
-  
 }

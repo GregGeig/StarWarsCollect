@@ -67,24 +67,26 @@ addEventListener("keydown", function (event) {
   ) {
     inputValue = input.value;
     if (inputValue === "MLP" && eventcounter == 1) {
-      audios[10].loop = false
-      audios[10].pause()
-      audios[9].play()
-      audios[0].loop = false
-      audios[0].pause()
+      audios[10].loop = false;
+      audios[10].pause();
+      audios[9].play();
+      audios[0].loop = false;
+      audios[0].pause();
       counter1 = 9;
       console.log("MLP activated");
       switchArea();
       surface.style.background = "url(images/img10.jpg)";
       surface.style.backgroundSize = "cover";
       mlpValid = true;
+      let mlpboolean = mlpValid;
+      sessionStorage["mlp"] = JSON.stringify(mlpboolean);
     }
     console.log(inputValue);
     document.getElementById("input").style.display = "none";
     document.getElementById("hidden").style.opacity = 1;
-    if(!mlpValid){
-    audios[10].play();
-    audios[10].loop = true;
+    if (!mlpValid) {
+      audios[10].play();
+      audios[10].loop = true;
     }
     eventcounter = 2;
   } else if (event.key === "Enter" && eventcounter == 2) {
@@ -107,11 +109,11 @@ function nextscape() {
   }
   audios[10].pause();
   audios[10].loop = false;
-  if (mlpValid == true){
-    audios[9].play()
-    audios[0].pause()
-  }else{
-  audios[counter1].play();
+  if (mlpValid == true) {
+    audios[9].play();
+    audios[0].pause();
+  } else {
+    audios[counter1].play();
   }
   document.getElementById("scapes").src = scapes2[counter1];
 }
@@ -127,11 +129,11 @@ function lastscape() {
   }
   audios[10].pause();
   audios[10].loop = false;
-  if (mlpValid == true){
-    audios[9].play()
-    audios[0].pause()
-  }else{
-  audios[counter1].play();
+  if (mlpValid == true) {
+    audios[9].play();
+    audios[0].pause();
+  } else {
+    audios[counter1].play();
   }
   document.getElementById("scapes").src = scapes2[counter1];
 }
@@ -143,12 +145,12 @@ function switchArea() {
   document.getElementById("surface").style.width = "1200px";
   document.getElementById("surface").style.background =
     "url(" + scapes2[counter1] + ")";
-  audios[10].pause()
-  if(mlpValid == true){
-    audios[9].play()
-    audios[0].pause()
-  }else{
-  audios[counter1].play();
+  audios[10].pause();
+  if (mlpValid == true) {
+    audios[9].play();
+    audios[0].pause();
+  } else {
+    audios[counter1].play();
   }
   document.getElementById("surface").style.backgroundSize = "cover";
 }
@@ -247,7 +249,7 @@ function startGame() {
   document.getElementById("dashboard").innerHTML = `<div id="counter">
   <h1>points: ${counter}</h1>
   </div>`;
-  stoppuhr.start()
+  stoppuhr.start();
 
   gameLoop();
 }
@@ -295,11 +297,11 @@ function gameLoop() {
  */
 let collectible = document.getElementById("collectible");
 function movePlayer(dx, dy, dr) {
-  if (mlpValid == true){
-    audios[9].play()
-    audios[0].pause()
-  }else{
-  audios[counter1].play();
+  if (mlpValid == true) {
+    audios[9].play();
+    audios[0].pause();
+  } else {
+    audios[counter1].play();
   }
   // current position
   let x = parseFloat(player.style.left);
@@ -322,29 +324,29 @@ function movePlayer(dx, dy, dr) {
     let collectiblem = collectible.dataset.value;
     collectiblem = parseInt(collectiblem);
     counter = counter + collectiblem;
-    if(mlpValid == true){
-      audios[0].pause()
-      audios[9].pause()
-    }else{
-    audios[counter1].pause();
+    if (mlpValid == true) {
+      audios[0].pause();
+      audios[9].pause();
+    } else {
+      audios[counter1].pause();
     }
-    audios[audios.length -1].play();
-    if (counter >= 1000){
+    audios[audios.length - 1].play();
+    if (counter >= 1000) {
       document.getElementById("counter").innerHTML = `<h1>points: max</h1>`;
       counter = 999;
     } else {
-    document.getElementById("counter").innerHTML = `
+      document.getElementById("counter").innerHTML = `
     <h1>points: ${counter}</h1>`;
     }
     collectible.style.display = "none";
     setTimeout(() => {
       placeCollectible();
 
-      if (mlpValid == true){
-        audios[0].pause()
-        audios[9].play()
-      }else{
-      audios[counter1].play();
+      if (mlpValid == true) {
+        audios[0].pause();
+        audios[9].play();
+      } else {
+        audios[counter1].play();
       }
     }, 1000);
   }
@@ -401,7 +403,7 @@ function placeCollectible() {
   // calculate random position
   let maxX = gameContainer.clientWidth - collectible.clientWidth;
   let maxY = gameContainer.clientHeight - collectible.clientHeight;
-  audios[audios.length -1].pause();
+  audios[audios.length - 1].pause();
   let randomX = Math.floor(Math.random() * maxX);
   while (randomX < 0 || randomX > 1180) {
     randomX = Math.floor(Math.random() * maxX);
@@ -431,86 +433,77 @@ function placeCollectible() {
 
 placeCollectible();
 
-
-
 function idset(id, string) {
   document.getElementById(id).innerHTML = string;
 }
 
-var stoppuhr = (function() {
+var stoppuhr = (function () {
   var stop = 1;
-  var days = 0;
-  var hrs = 0;
   var mins = 0;
   var secs = 0;
   var msecs = 0;
   return {
-    start: function() {
+    start: function () {
       stop = 0;
     },
-    stop: function() {
+    stop: function () {
       stop = 1;
     },
-    clear: function() {
+    clear: function () {
       stoppuhr.stop();
-      days = 0;
-      hrs = 0;
       mins = 0;
       secs = 0;
       msecs = 0;
       stoppuhr.html();
     },
-    restart: function() {
+    restart: function () {
       stoppuhr.clear();
       stoppuhr.start();
     },
-    timer: function() {
+    timer: function () {
       if (stop === 0) {
         msecs++;
         if (msecs === 100) {
-          secs ++;
+          secs++;
           msecs = 0;
         }
         if (secs === 60) {
           mins++;
           secs = 0;
         }
-        if (mins === 60) {
-          hrs++;
-          mins = 0;
-        }
-        if (hrs === 24) {
-          days++;
-          hrs = 0;
-        }
-        if (mins == 1 && secs == 30){
-          let score = [inputValue,counter]
-          let final = JSON.parse(localStorage["score"] ?? "[]")
-          final.push(score)
-          localStorage["score"] = JSON.stringify(final)
-          stoppuhr.stop()
-          window.location = "./sides/game_end.html"
+        if (mins == 1 && secs == 30) {
+          let score = [inputValue, counter];
+          let final = JSON.parse(localStorage["score"] ?? "[]");
+          final.push(score);
+          localStorage["score"] = JSON.stringify(final);
+          stoppuhr.stop();
+          window.location = "./sides/game_end.html";
         }
         stoppuhr.html();
       }
     },
-    
-    set: function(tage, stunden, minuten, sekunden, msekunden) {
+
+    set: function (minuten, sekunden, msekunden) {
       stoppuhr.stop();
-      days = tage;
-      hrs = stunden;
       mins = minuten;
       secs = sekunden;
       msecs = msekunden;
       stoppuhr.html();
     },
-    html: function() {
-      idset("tage", days);
-      idset("stunden", hrs);
+    html: function () {
       idset("minuten", mins);
       idset("sekunden", secs);
       idset("msekunden", msecs);
-    }
-  }
+    },
+  };
 })();
 setInterval(stoppuhr.timer, 10);
+
+function mlp() {
+  let mlpbool = JSON.parse(sessionStorage["mlp"] ?? "MLP");
+  if (mlpbool == true) {
+    document.getElementById("buttonrow").innerHTML += `<button>
+    <a class="buttonlink" href="https://github.com/EldinBegano/Pokemon-Mask">MLP</a>
+  </button>`;
+  }
+}
