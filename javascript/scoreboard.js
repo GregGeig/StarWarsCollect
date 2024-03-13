@@ -57,3 +57,9 @@ function getScores() {
 function toStart(){
     window.location = "../spritegame.html"
 }
+
+function mlp(){
+    if(mlpValid == true)
+    document.getElementById("buttonrow").innerHTML +=
+    `g`
+}

@@ -63,7 +63,7 @@ button:hover{
     
 }
 
-.buttonrow{
+#buttonrow{
     display: flex;
     flex-direction: column;
 }
