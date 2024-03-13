@@ -56,6 +56,7 @@ let counter1 = 0;
 let input = document.getElementById("input");
 let eventcounter = 1;
 let mlpValid = false;
+let inputValue = "";
 
 addEventListener("keydown", function (event) {
   if (
@@ -64,10 +65,14 @@ addEventListener("keydown", function (event) {
     input.style.display != "none" &&
     eventcounter == 1
   ) {
-    var inputValue = input.value;
+    inputValue = input.value;
     if (inputValue === "MLP" && eventcounter == 1) {
       audios[10].loop = false
       audios[10].pause()
+      audios[9].play()
+      audios[0].loop = false
+      audios[0].pause()
+      counter1 = 9;
       console.log("MLP activated");
       switchArea();
       surface.style.background = "url(images/img10.jpg)";
@@ -102,7 +107,12 @@ function nextscape() {
   }
   audios[10].pause();
   audios[10].loop = false;
+  if (mlpValid == true){
+    audios[9].play()
+    audios[0].pause()
+  }else{
   audios[counter1].play();
+  }
   document.getElementById("scapes").src = scapes2[counter1];
 }
 
@@ -117,7 +127,12 @@ function lastscape() {
   }
   audios[10].pause();
   audios[10].loop = false;
+  if (mlpValid == true){
+    audios[9].play()
+    audios[0].pause()
+  }else{
   audios[counter1].play();
+  }
   document.getElementById("scapes").src = scapes2[counter1];
 }
 let cantinamusic = document.getElementById("cantina");
@@ -129,7 +144,12 @@ function switchArea() {
   document.getElementById("surface").style.background =
     "url(" + scapes2[counter1] + ")";
   audios[10].pause()
+  if(mlpValid == true){
+    audios[9].play()
+    audios[0].pause()
+  }else{
   audios[counter1].play();
+  }
   document.getElementById("surface").style.backgroundSize = "cover";
 }
 document.addEventListener("keydown", function (event) {
@@ -227,6 +247,7 @@ function startGame() {
   document.getElementById("dashboard").innerHTML = `<div id="counter">
   <h1>points: ${counter}</h1>
   </div>`;
+  stoppuhr.start()
 
   gameLoop();
 }
@@ -274,7 +295,12 @@ function gameLoop() {
  */
 let collectible = document.getElementById("collectible");
 function movePlayer(dx, dy, dr) {
+  if (mlpValid == true){
+    audios[9].play()
+    audios[0].pause()
+  }else{
   audios[counter1].play();
+  }
   // current position
   let x = parseFloat(player.style.left);
   let y = parseFloat(player.style.top);
@@ -296,7 +322,12 @@ function movePlayer(dx, dy, dr) {
     let collectiblem = collectible.dataset.value;
     collectiblem = parseInt(collectiblem);
     counter = counter + collectiblem;
+    if(mlpValid == true){
+      audios[0].pause()
+      audios[9].pause()
+    }else{
     audios[counter1].pause();
+    }
     audios[audios.length -1].play();
     if (counter >= 1000){
       document.getElementById("counter").innerHTML = `<h1>points: max</h1>`;
@@ -309,7 +340,12 @@ function movePlayer(dx, dy, dr) {
     setTimeout(() => {
       placeCollectible();
 
+      if (mlpValid == true){
+        audios[0].pause()
+        audios[9].play()
+      }else{
       audios[counter1].play();
+      }
     }, 1000);
   }
 
@@ -446,6 +482,14 @@ var stoppuhr = (function() {
         if (hrs === 24) {
           days++;
           hrs = 0;
+        }
+        if (mins == 1 && secs == 30){
+          let score = [inputValue,counter]
+          let final = JSON.parse(localStorage["score"] ?? "[]")
+          final.push(score)
+          localStorage["score"] = JSON.stringify(final)
+          stoppuhr.stop()
+          window.location = "./sides/game_end.html"
         }
         stoppuhr.html();
       }

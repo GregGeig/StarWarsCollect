@@ -1,7 +1,8 @@
-body, html{
-    background-image: url(../images/space.jpg);
-    overflow-x: hidden;
-    text-align: center;
+body,
+html {
+  background-image: url(../images/space.jpg);
+  overflow-x: hidden;
+  text-align: center;
 
 }
 
@@ -10,31 +11,63 @@ body, html{
   src: url(../font/star_jedi/starjedi/Starjedi.ttf);
 }
 
-#headline{
+#headline {
   font-family: jedi;
-  font-size: 2rem;
+  font-size: 1.6rem;
+  letter-spacing: 0.4vw;
   color: yellow;
   text-align: center;
 }
 
-.descriptionrow{
-  color: yellow;
-  font-size: 1.8rem;
+.scorerow {
+  width: 60vw;
   display: flex;
   flex-direction: row;
   position: relative;
-  left: 14vw;
+  left: 20vw;
+  justify-content: space-between;
+  border-bottom: 5px solid yellow;
+  padding: 0;
 }
 
-.place{
-  width: 10vw;
-  height: auto;
-  padding-left: 4vw;
+.names {
+  width: 80%;
+  border-right: 5px solid yellow;
+  text-align: left;
+  padding: 0;
 }
 
-.name{
-  width: 40vw;
-  height: auto;
-  padding-left: 4vw;
+#wrapper{
+  position: relative;
+  bottom: 2vh;
 }
 
+.scores {
+  width: 20%;
+  padding: 0;
+}
+
+p {
+  color: yellow;
+  font-family: jedi;
+  font-size: 2rem;
+}
+
+#animatePlayAgain{
+  font-size: 2rem;
+  width: 20vw;
+  position: relative;
+  padding: 0.3vw;
+  background-color: black;
+  border: yellow solid 3px;
+  color: yellow;
+  font-family: jedi;
+  margin-bottom: 2vw;
+  transition: linear 0.3s;
+  border-radius: 10vw;
+}
+
+#animatePlayAgain:hover{
+  transform: scale(1.15,1.15);
+  
+}

@@ -4,13 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/scoreboard.css">
-    <script src="../javascript/scoreboard.js" defer></script>
-    <title>Spritegame</title>
+    <script src="../javascript/scoreboard.js"></script>
+    <title>Sprite Game</title>
 </head>
-<body>
-    <div id="headline"><h1>scoreboard</h1></div>
-    <div id="table">
-        
+<body onload="getScores()">
+    <div id="headline">
+    <h1>Leaderboard</h1>
+</div>
+    <div id="wrapper">
+        <div id="mainLessMargin">
+            </div>
+        </div>
+        <div id="inputMain">
+            <input id="animatePlayAgain" type="submit" value="back to start" onclick="toStart()">
+        </div>
     </div>
+    
+
 </body>
-</html>
+</html>`

@@ -13,11 +13,11 @@
       <audio autoplay loop="true" id="cantina" src="./audio/audio6.mp3"></audio>      
       <div id="inputfield">
         <input type="text" id="input" placeholder="Enter your name" onkeydown=""/>
+      </div>
+      <div id="hidden">
         <button id="leaderbutton">
           <a class="buttonlink" href="./sides/scoreboard.html">scoreboard</a>
         </button>
-      </div>
-      <div id="hidden">
       <h3 id="h3l">landscapes</h3>
       <div id="landscape">
         <div class="button" id="button1" onclick="lastscape()" onkeydown=""></div>
@@ -39,6 +39,11 @@
         
         <div id="startButton" onclick="startGame()">start game</div>
       </div>
+      
+      <div class="clock" id="clockdiv">
+        <div id="clock"><span id="tage">0</span>:<span id="stunden">0</span>:<span id="minuten">0</span>:<span id="sekunden">0</span>:<span id="msekunden">0</span>
+</div>
+    </div>
 
       <div id="surface">
         <div id="player">
